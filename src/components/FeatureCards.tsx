@@ -24,27 +24,27 @@ const FeatureCards = () => {
   const features = [
     {
       icon: <BookOpen size={24} className="text-white" />,
-      title: "Quality Education",
-      description: "Start on your goals now with our flexible online program options.",
-      color: "bg-teal-500"
+      title: "Interactive Learning",
+      description: "Access comprehensive MD program modules with interactive content and multimedia resources.",
+      color: "bg-primary"
     },
     {
       icon: <Award size={24} className="text-white" />,
-      title: "Industry Recognition",
-      description: "Benefit from highly-valuable credentials recognized by top employers.",
-      color: "bg-cyan-500"
+      title: "Clinical Excellence",
+      description: "Study materials aligned with international medical education standards and best practices.",
+      color: "bg-primary-light"
     },
     {
       icon: <Lightbulb size={24} className="text-white" />,
-      title: "Skills Enhancement",
-      description: "Enhance your career with practical skills that make you more productive and more valuable.",
-      color: "bg-sky-500"
+      title: "Continuous Support",
+      description: "Get assistance from experienced medical faculty and access study resources 24/7.",
+      color: "bg-primary"
     },
     {
       icon: <Users size={24} className="text-white" />,
-      title: "Supportive Community",
-      description: "Join a supportive online community and connect with other professionals.",
-      color: "bg-blue-500"
+      title: "Collaborative Learning",
+      description: "Connect with fellow medical students through discussion forums and virtual study groups.",
+      color: "bg-primary-light"
     }
   ];
 
