@@ -52,28 +52,24 @@ const fetcher = async (url: string) => {
     }
     const courses: MoodleCourse[] = await coursesResponse.json();
 
-    if (!Array.isArray(courses)) {
-      throw new Error('Invalid courses response');
-    }
-
     // Take only the first 3 courses
     const limitedCourses = courses.slice(0, 3);
 
-    // Step 2: Fetch overview files for the limited courses
+    // Step 2: Fetch overview files for each course
     const filesUrl = new URL(`${moodleUrl}/webservice/rest/server.php`);
     filesUrl.searchParams.set('wstoken', wstoken);
     filesUrl.searchParams.set('wsfunction', 'core_course_get_course_overview_files');
     filesUrl.searchParams.set('moodlewsrestformat', 'json');
-    
-    limitedCourses.forEach((course, i) => {
-      filesUrl.searchParams.set(`courseids[${i}]`, String(course.id));
+
+    limitedCourses.forEach((course, index) => {
+      filesUrl.searchParams.set(`courseids[${index}]`, course.id.toString());
     });
 
     const filesResponse = await fetch(filesUrl.toString());
     if (!filesResponse.ok) {
       throw new Error('Failed to fetch course files');
     }
-    const filesData: Record<string, CourseOverviewFile[]> = await filesResponse.json();
+    const filesData = await filesResponse.json();
 
     // Combine course data with their files
     const coursesWithFiles: CourseWithFiles[] = limitedCourses.map(course => ({
@@ -133,7 +129,6 @@ const LatestCourses = () => {
   
   const shouldFetch = Boolean(moodleUrl && wstoken);
   
-  // Create a URL that includes the configuration but doesn't make an actual API call
   const configUrl = shouldFetch ? new URL('config', window.location.origin) : null;
   if (configUrl) {
     configUrl.searchParams.set('moodleUrl', moodleUrl);
