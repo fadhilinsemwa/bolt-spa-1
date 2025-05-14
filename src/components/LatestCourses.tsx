@@ -85,6 +85,8 @@ const fetcher = async (url: string) => {
 };
 
 const CourseCard: React.FC<CourseCardProps> = ({ image, title, category, description, link }) => {
+  const defaultImage = "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="aspect-w-16 aspect-h-9 bg-gray-200 relative">
@@ -92,7 +94,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ image, title, category, descrip
           <div className="w-10 h-10 border-t-2 border-teal-500 border-solid rounded-full animate-spin"></div>
         </div>
         <img 
-          src={image}
+          src={image || defaultImage}
           alt={title} 
           className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
           onLoad={(e) => {
@@ -144,9 +146,19 @@ const LatestCourses = () => {
     return (
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center text-amber-600 bg-amber-50 p-4 rounded-lg">
-            <AlertCircle className="mr-2" size={20} />
-            <p>Moodle configuration is missing. Please check your environment variables.</p>
+          <div className="flex flex-col items-center justify-center text-amber-600 bg-amber-50 p-6 rounded-lg">
+            <AlertCircle className="mb-4" size={32} />
+            <h3 className="text-lg font-semibold mb-2">Moodle Configuration Required</h3>
+            <p className="text-center mb-4">To display courses, you need to configure your Moodle integration.</p>
+            <div className="bg-white p-4 rounded-md shadow-sm w-full max-w-lg">
+              <p className="text-sm text-gray-700 mb-2">Add these variables to your environment:</p>
+              <pre className="bg-gray-50 p-3 rounded text-sm overflow-x-auto">
+                <code>
+                  VITE_MOODLE_URL=your_moodle_url{'\n'}
+                  VITE_MOODLE_TOKEN=your_moodle_token
+                </code>
+              </pre>
+            </div>
           </div>
         </div>
       </section>
